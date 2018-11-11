@@ -36,8 +36,13 @@ class UI {
     }
 
     displayResult(data, currency) {
-        console.log(data);
         let currencyVal = "price_" + currency.toLowerCase();
+
+        const prevResult = document.querySelector('#result div'); 
+
+        if(prevResult) {
+            prevResult.remove();
+        }
 
         let html = '';
         html = `
@@ -51,7 +56,20 @@ class UI {
                 </div>
             </div>
         `;
-        const resultDiv = document.querySelector('#result');
-        resultDiv.innerHTML = html;
+
+        this.showSpinner();
+
+        setTimeout(() => {
+            document.querySelector('.spinner img').remove();
+            const resultDiv = document.querySelector('#result');
+            resultDiv.innerHTML = html;
+        }, 2000);
+    }
+
+    showSpinner() {
+        const spinnerGif = document.querySelector('.spinner');
+        const img = document.createElement('img');
+        img.src = '../img/spinner.gif';
+        spinnerGif.appendChild(img);
     }
 }
